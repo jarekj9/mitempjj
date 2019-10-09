@@ -1,0 +1,31 @@
+<html>
+<head>
+</head>
+
+<body>
+MI temperature and humidity sensor. Choose date range (Y-M-D):</br>
+		
+
+<div class="row">
+
+	<form id="MyForm" method="POST" class="post-form">{% csrf_token %}
+		From: <input type="text" class = "datepicker" name = "StartDate" id="StartDate" placeholder = "{{StartDate}}" value="{{StartDate}}" style = "width : 85px; margin-left: 10px; margin-top: 1mm;"/>
+		To: <input type="text" class = "datepicker" name = "EndDate" id="EndDate" placeholder = "{{EndDate}}" value="{{EndDate}}" style = "width : 85px; margin-left: 10px;"/>
+		<input type = "submit" name = "submit" value = "Update" style = "font-weight: bold; margin-left: 10px;"/>
+	</form>	
+</div>
+	
+	
+<div class="row">
+	<div class="column"> {{ line_chart.as_html }}</div>
+</div>
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.min.js"></script>
+</body>
+</html>
+
+
+

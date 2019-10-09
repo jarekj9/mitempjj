@@ -1,0 +1,11 @@
+{% block title %}Login{% endblock %}
+
+{% block content %}
+  <h2>Login</h2>
+  <form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    {{ form.username }}
+	{{ form.password }}
+    <button type="submit">Login</button>
+  </form>
+{% endblock %}
