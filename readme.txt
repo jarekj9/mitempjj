@@ -4,7 +4,7 @@ Project consists of 2 parts:
 1. Script poll_sensor.py, which reads data from sensor via bluetooth and writes data to mysql database
 2. Docker container, that reads data from mysql and presents interactive graphs in web browser
 
-![Alt text](screenshot.jpg?raw=true "Title")
+![Alt text](https://github.com/jarekj9/mitempjj/blob/master/screenshot.jpg?raw=true "Title")
 
 Install:
 
