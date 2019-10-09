@@ -1,4 +1,10 @@
+It works with "Mi Bluetooth Temperature & Humidity Monitor".
 
+Project consists of 2 parts:
+1. Script poll_sensor.py, which reads data from sensor via bluetooth and writes data to mysql database
+2. Docker container, that reads data from mysql and presents interactive graphs in web browser
+
+![Alt text](screenshot.jpg?raw=true "Title")
 
 Install:
 
@@ -69,6 +75,7 @@ Simple Schema:
 | |          |172.19.0.1       |                  |  |
 | +----------+                 +------------------+  |
 +----------------------------------------------------+
+
 
 
 v0.1 09.10.2019
