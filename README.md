@@ -1,4 +1,5 @@
-It works with "Mi Bluetooth Temperature & Humidity Monitor".
+It works with "Mi Bluetooth Temperature & Humidity Monitor":
+![Mi Sensor](misensor.png?raw=true "Mi Sensor")
 
 Project consists of 2 parts:
 1. Script poll_sensor.py, which reads data from sensor via bluetooth and writes data to mysql database
