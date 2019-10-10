@@ -43,7 +43,7 @@ skip-networking=0
 View data on http://<raspberry pi IP>:8083/temperature_sensor
 
 Simple Schema:
-'''
+```
 +--------------+              +----------------------+
 |              |              |                      |
 |  MI SENSOR   |              |  PC with www browser |
@@ -74,7 +74,7 @@ Simple Schema:
 | |          |172.19.0.1       |                  |  |
 | +----------+                 +------------------+  |
 +----------------------------------------------------+
-'''
+```
 
 
 v0.1 09.10.2019
