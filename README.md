@@ -9,17 +9,21 @@ Project consists of 2 parts:
 ![Screenshot](screenshot.jpg?raw=true "Screenshot")
 
 
+INSTRUCTIONS:
+
 1. Download project folder
 2. Install docker and docker-compose
 3. Install mariadb(mysql) and create mysql user, that have rights to create databases and tables.
 4. Create file temperature_sensor/.mitempjj -> put database details and Mi sensor MAC address (Sensor needs to be connected via bluetooth):
 
+```
 cat temperature_sensor/.mitempjj
 db_address=localhost
 db_name=DB
 db_login=your_login
 db_password=your_password
 sensor_MAC=4c:65:a8:d4:b9:f0
+```
 
 5. Running script 'poll_sensor.py' will save sensor data to mysql DB. I added this to crontab and it runs every 10 minutes.
 6. Inside main folder run:
@@ -36,11 +40,14 @@ WWW server port: 8083
 - allow connections to localhost on tcp port 8083
 
 7. In mysql config allow remote connections:
+
+```
 /etc/mysql/mariadb.cnf:
 ...
 [mysqld]
 skip-networking=0
 ...
+```
 
 View data on http://<raspberry pi IP>:8083/temperature_sensor
 
@@ -78,5 +85,7 @@ Simple Schema:
 +----------------------------------------------------+
 ```
 
+TO DO:
+-simplify installation
 
 v0.1 09.10.2019
