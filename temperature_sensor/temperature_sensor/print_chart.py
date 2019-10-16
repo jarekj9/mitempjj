@@ -80,7 +80,7 @@ def readall(**kwargs):
 		EndDate = datetime.now().strftime("%Y-%m-%d")
 	
 	datetab,batterytab,temperaturetab,humiditytab=[],[],[],[]
-	mariadb_connection = mariadb.connect(host='172.19.0.1',user=config().get('login'), password=config().get('passw'), database=config().get('name'))
+	mariadb_connection = mariadb.connect(user=config().get('login'), password=config().get('passw'), database=config().get('name'))
 	cursor = mariadb_connection.cursor()
 	cursor.execute("SELECT date,battery,temperature,humidity FROM temperature_sensor WHERE date BETWEEN CAST('%s' AS DATE) AND CAST('%s' AS DATE)" % (StartDate,EndDate))
 	

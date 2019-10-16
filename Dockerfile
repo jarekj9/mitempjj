@@ -13,21 +13,25 @@ RUN apt-get install -y \
     libfreetype6-dev \
     zlib1g-dev \
     net-tools \
-    vim
+    vim \
+    mariadb-server
+RUN apt-get autoremove -y && \
+    apt-get clean
+
 # Project Files and Settings
 ARG PROJECT=django
 ARG PROJECT_DIR=/var/www/${PROJECT}
-RUN mkdir -p $PROJECT_DIR
 
+RUN mkdir -p $PROJECT_DIR
 RUN mkdir -p $PROJECT_DIR/temperature_sensor
 COPY temperature_sensor $PROJECT_DIR/temperature_sensor
+COPY DB.temperature_sensor-schema.sql $PROJECT_DIR/temperature_sensor/
 WORKDIR $PROJECT_DIR/temperature_sensor
-
+RUN sh mysql-init.sh
 
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 # Server
-EXPOSE 8083
 STOPSIGNAL SIGINT
-ENTRYPOINT ["python", "manage.py"]
-CMD ["runserver", "0.0.0.0:8083"]
+ENTRYPOINT ["sh"]
+CMD ["entry-point.sh"]

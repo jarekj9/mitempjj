@@ -6,6 +6,7 @@ import logging
 import sys
 import subprocess
 import mysql.connector as mariadb 
+from datetime import datetime
 
 from btlewrap import available_backends, BluepyBackend, GatttoolBackend, PygattBackend
 from mitemp_bt.mitemp_bt_poller import MiTempBtPoller, \
@@ -66,14 +67,14 @@ def print_data():
 # create tables if they don't exist
 def create_tables():
   #create DB if not exists
-  mariadb_connection = mariadb.connect(host=config().get('addr'),user=config().get('login'), password=config().get('passw'))
+  mariadb_connection = mariadb.connect(user=config().get('login'), password=config().get('passw'), port=13306)
   cursor = mariadb_connection.cursor()
   cursor.execute("create database IF NOT EXISTS %s" % config().get('name') )
   mariadb_connection.commit()
   mariadb_connection.close()
 
   #create tables if not exist
-  mariadb_connection = mariadb.connect(host=config().get('addr'),user=config().get('login'), password=config().get('passw'), database=config().get('name'))
+  mariadb_connection = mariadb.connect(user=config().get('login'), password=config().get('passw'), database=config().get('name'), port=13306)
   cursor = mariadb_connection.cursor()
   try:
     cursor.execute("CREATE TABLE IF NOT EXISTS temperature_sensor("
@@ -111,10 +112,11 @@ def config():
 #write data into DB
 def insert_into_db(battery,temp,hum):
   
-  mariadb_connection = mariadb.connect(host=config().get('addr'),user=config().get('login'), password=config().get('passw'), database=config().get('name')) 
+  mariadb_connection = mariadb.connect(user=config().get('login'), password=config().get('passw'), database=config().get('name'), port=13306) 
 
-  cursor = mariadb_connection.cursor() 
-  cursor.execute("INSERT INTO temperature_sensor (date,battery,temperature,humidity) VALUES (CURRENT_TIMESTAMP,'%s','%s','%s')" % (battery,float(temp),float(hum)))
+  cursor = mariadb_connection.cursor()
+  timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+  cursor.execute("INSERT INTO temperature_sensor (date,battery,temperature,humidity) VALUES ('%s','%s','%s','%s')" % (timestamp,battery,float(temp),float(hum)))
   
   mariadb_connection.commit()
   print ("The last inserted id was: ", cursor.lastrowid)
@@ -130,7 +132,7 @@ def main():
   
   battery,temp,hum = poll(args)
   #print(battery,temp,hum)
-  create_tables()
+  #create_tables()
   insert_into_db(battery,temp,hum)
 
 if __name__=='__main__':

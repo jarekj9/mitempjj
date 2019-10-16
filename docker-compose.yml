@@ -1,17 +1,19 @@
 version: "2"
 services:
   django:
-    container_name: django_temperature_sensor2
+    container_name: django_temperature_sensor
     build:
       context: .
       dockerfile: Dockerfile
-    image: django_temperature_sensor2
+    restart: unless-stopped
+    image: django_temperature_sensor
     stdin_open: true
     tty: true
     volumes:
       - .:/var/www/django_temperature_sensor
     ports:
       - "8083:8083"
+      - "13306:3306"
     networks:
       net1:
         ipv4_address: 172.19.0.2
