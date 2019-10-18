@@ -36,7 +36,7 @@ Check with command 'docker ps' if container is running.
 
 4. Install additional python3 packages:
 ```
-sudo pip3 install requirements.txt
+sudo pip3 install -r requirements.txt
 ```
 5. Check xiaomi sensor MAC address and add it to file:
 ```
