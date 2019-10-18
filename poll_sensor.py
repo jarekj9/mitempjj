@@ -126,7 +126,7 @@ def insert_into_db(battery,temp,hum):
 def main():
   parser = argparse.ArgumentParser()
   args = parser.parse_args()
-  args.__dict__["mac"]='4c:65:a8:d4:b9:f0'
+  args.__dict__["mac"]=config().get('mac')
   args.__dict__['verbose']=None
   args.__dict__['backend']='bluepy'
   
