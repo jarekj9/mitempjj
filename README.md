@@ -23,6 +23,7 @@ sudo curl -sSL https://get.docker.com | sh
 sudo apt-get install libffi-dev
 sudo pip3 install docker-compose
 sudo usermod -aG docker pi
+logout
 ```
 
 2. Re-login to rpi and download project folder: 
