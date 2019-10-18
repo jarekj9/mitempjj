@@ -1,5 +1,6 @@
-I've made this project to learn and for fun. It has been prepared on raspberry pi 3b+.
+I've made this project to learn and for fun.
 It will not work on RPI 1/zero due to architecture.
+I tested it on RPI 3B+, on fresh raspbian 10 buster install (full).
 
 It works with "Mi Bluetooth Temperature & Humidity Monitor":
 
@@ -19,11 +20,12 @@ INSTRUCTIONS:
 1.Install docker:
 ```
 sudo curl -sSL https://get.docker.com | sh
-sudo usermod -aG docker pi
 sudo apt-get install libffi-dev
 sudo pip3 install docker-compose
+sudo usermod -aG docker pi
 ```
-2. Download project folder: 
+
+2. Re-login to rpi and download project folder: 
 ```
 git clone https://github.com/jarekj9/mitempjj.git
 cd mitempjj
