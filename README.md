@@ -68,30 +68,10 @@ This will add it to crontab so it runs every 10 minutes (just replace '/your_pat
 ```
 
 
-
 View data on ```http://<raspberry pi IP>:8083/temperature_sensor/```
 
 
-Check if container is running:
-```
-$ docker ps -a
-CONTAINER ID        IMAGE                        COMMAND               CREATED             STATUS                   PORTS                    NAMES
-6300d0b0fbc7        django_temperature_sensor2   "sh entry-point.sh"   22 hours ago        Up 22 hours              0.0.0.0:8083->8083/tcp   django_temperature_sensor2
-```
-To remove container:
-```
-Stop and remove container:
-$docker stop 6300d0b0fbc7
-$docker remove 6300d0b0fbc7
-```
-To remove image:
-```
-$ docker image ls
-REPOSITORY                   TAG                 IMAGE ID            CREATED             SIZE
-django_temperature_sensor2   latest              89b8c59f3638        22 hours ago        335MB
 
-$docker image rm django_temperature_sensor2
-```
 Simple Schema:
 ```
 +--------------+              +----------------------+
