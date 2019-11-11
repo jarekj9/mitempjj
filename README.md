@@ -49,8 +49,8 @@ sudo blescan
 ```
 (The MAC should have description like: Complete Local Name: 'MJ_HT_V1'
 
-Edit this mac in file (just MAC, don't edit other fieds):
-```temperature_sensor/.mitempjj```
+Edit this mac in file:
+```mac-address.txt```
 
 
 6. If you use firewall, allow connections to rpi on tcp port 8083
