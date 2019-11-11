@@ -9,49 +9,49 @@ g_startdate=""
 g_enddate=""
 #only takes date, sets global vars and starts LineChart(), which next uses these global vars
 class LineChartInit:
-	def __init__(self,StartDate,EndDate):
-		global g_startdate,g_enddate
-		g_startdate = StartDate
-		g_enddate = EndDate
-	def run_LineChart(self):
-		return LineChart()
+  def __init__(self,StartDate,EndDate):
+    global g_startdate,g_enddate
+    g_startdate = StartDate
+    g_enddate = EndDate
+  def run_LineChart(self):
+    return LineChart()
 
 
 #all charts in one
 class LineChart(Chart):
-	chart_type = 'line'
-	
+  chart_type = 'line'
+  
 
-	def get_datasets(self, **kwargs):
+  def get_datasets(self, **kwargs):
 
-		colors = [
-			rgba(255, 99, 132, 0.2),
-			rgba(54, 162, 235, 0.2),
-			rgba(255, 206, 86, 0.2),
-			rgba(75, 192, 192, 0.2),
-			rgba(153, 102, 255, 0.2),
-			rgba(255, 159, 64, 0.2)
-		]
+    colors = [
+      rgba(255, 99, 132, 0.2),
+      rgba(54, 162, 235, 0.2),
+      rgba(255, 206, 86, 0.2),
+      rgba(75, 192, 192, 0.2),
+      rgba(153, 102, 255, 0.2),
+      rgba(255, 159, 64, 0.2)
+    ]
 
-		return [
-		{
-			'label': ["Battery"],
-			#'borderColor' : colors,
-			#'backgroundColor' : colors,
-			'data': readall(StartDate=g_startdate,EndDate=g_enddate).get('batterytab')},
-		{
-			'label': ["Temperature"],
-			'data': readall(StartDate=g_startdate,EndDate=g_enddate).get('temperaturetab')},
-		{
-			'label': ["Humidity"],
-			'data': readall(StartDate=g_startdate,EndDate=g_enddate).get('humiditytab')},
-		
-		]
-		
-		
-	def get_labels(self, **kwargs):
-		return readall(StartDate=g_startdate,EndDate=g_enddate).get('datetab')		
-		
+    return [
+    {
+      'label': ["Battery"],
+      #'borderColor' : colors,
+      #'backgroundColor' : colors,
+      'data': readall(StartDate=g_startdate,EndDate=g_enddate).get('batterytab')},
+    {
+      'label': ["Temperature"],
+      'data': readall(StartDate=g_startdate,EndDate=g_enddate).get('temperaturetab')},
+    {
+      'label': ["Humidity"],
+      'data': readall(StartDate=g_startdate,EndDate=g_enddate).get('humiditytab')},
+    
+    ]
+    
+    
+  def get_labels(self, **kwargs):
+    return readall(StartDate=g_startdate,EndDate=g_enddate).get('datetab')    
+    
 
 class SQLITE():
   def __init__(self,db_file):
@@ -81,32 +81,34 @@ class SQLITE():
       self.conn.commit()
       self.conn.close()
     except sqlite3.Error as e:
-      print(e)		
-		
+      print(e)    
+    
 
 #read values from sqlite
 def readall(**kwargs):
-	if kwargs:
-		StartDate= kwargs.get('StartDate')
-		EndDate= kwargs.get('EndDate')
-	else:#not used
-		StartDate = (datetime.now() - timedelta(1) ).strftime("%Y-%m-%d")
-		EndDate = (datetime.now() + timedelta(1) ).strftime("%Y-%m-%d")
-	
-	datetab,batterytab,temperaturetab,humiditytab=[],[],[],[]
-	
-	base=SQLITE("./database/mitempjj.db")
-	sql_select = "SELECT date,battery,temperature,humidity from mitempjj WHERE date >= '%s' and date <= '%s';"%(StartDate,EndDate)
-	rows=base.sqlite_select(sql_select)
-	base.sqlite_close()
-	unzipped=list(zip(*rows))
-	if unzipped:
-		return {'datetab':unzipped[0],
-				'batterytab':unzipped[1],
-				'temperaturetab':unzipped[2],
-				'humiditytab':unzipped[3]}
-	else:
-		return {'datetab':[0],
-				'batterytab':[0],
-				'temperaturetab':[0],
-				'humiditytab':[0]}
+  if kwargs:
+    StartDate= kwargs.get('StartDate')
+    EndDate= kwargs.get('EndDate')
+  else:#not used
+    StartDate = (datetime.now() - timedelta(1) ).strftime("%Y-%m-%d")
+    EndDate = (datetime.now() + timedelta(1) ).strftime("%Y-%m-%d")
+  
+  datetab,batterytab,temperaturetab,humiditytab=[],[],[],[]
+  
+  base=SQLITE("./database/mitempjj.db")
+  sql_select = "SELECT date,battery,temperature,humidity from mitempjj WHERE date >= '%s' and date <= '%s';"%(StartDate,EndDate)
+  rows=base.sqlite_select(sql_select)
+  base.sqlite_close()
+  
+  if rows:
+    unzipped=list(zip(*rows))
+    return {'datetab':unzipped[0],
+        'batterytab':unzipped[1],
+        'temperaturetab':unzipped[2],
+        'humiditytab':unzipped[3]}
+  else:
+    return {'datetab':[0],
+        'batterytab':[0],
+        'temperaturetab':[0],
+        'humiditytab':[0]}
+
