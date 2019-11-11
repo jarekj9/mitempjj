@@ -1,0 +1,1 @@
+sensor_MAC=4c:65:a8:d4:b9:f0

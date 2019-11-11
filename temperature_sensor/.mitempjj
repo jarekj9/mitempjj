@@ -1,7 +1,0 @@
-db_address=127.0.0.1
-db_name=DB
-db_login=pi
-db_password=s0me_password
-sensor_MAC=4c:65:a8:d4:b9:f0
-
-

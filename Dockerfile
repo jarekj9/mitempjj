@@ -12,9 +12,7 @@ RUN apt-get install -y \
     libjpeg-dev \
     libfreetype6-dev \
     zlib1g-dev \
-    net-tools \
-    vim \
-    mariadb-server
+    vim
 
 # Project Files and Settings
 ARG PROJECT=django
@@ -23,9 +21,7 @@ ARG PROJECT_DIR=/var/www/${PROJECT}
 RUN mkdir -p $PROJECT_DIR
 RUN mkdir -p $PROJECT_DIR/temperature_sensor
 COPY temperature_sensor $PROJECT_DIR/temperature_sensor
-COPY DB.temperature_sensor-schema.sql $PROJECT_DIR/temperature_sensor/
 WORKDIR $PROJECT_DIR/temperature_sensor
-RUN sh mysql-init.sh
 RUN pip install -r requirements.txt
 
 # Server

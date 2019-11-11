@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-import mysql.connector as mariadb
 from jchart.config import Axes, DataSet, rgba
 from jchart import Chart
 from datetime import datetime, timedelta
