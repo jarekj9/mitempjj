@@ -98,7 +98,7 @@ Simple Schema:
 |           v            |        v               |  |
 |          ++------------+--------+--+            |  |
 |          |  shared volume:         |            |  |
-|          |  /database/mitepjjj.db  |            |  |
+|          |  database/mitepjjj.db   |            |  |
 |          |  (sqlite)               |            |  |
 |          +-------------+-----------+            |  |
 |                        |                        |  |
