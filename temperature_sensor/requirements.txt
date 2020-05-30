@@ -6,7 +6,7 @@
 #
 --extra-index-url https://www.piwheels.org/simple
 
-django==2.2.4
+django==2.2.10
 pytz==2019.2              # via django
 sqlparse==0.3.0           # via django
 django-jchart
