@@ -1,6 +1,6 @@
 Recent updates:
-30.05.2020 - v2.1 - added simple api to read last values: ```http://<raspberry pi IP>:8083/temperature_sensor/api/```
-11.11.2019 - v2.0 - changed the app so it uses sqlite and takes less space, old version, using mysql is at : https://github.com/jarekj9/mitempjjv1
+- 30.05.2020 - v2.1 - added simple api to read last values: ```http://<raspberry pi IP>:8083/temperature_sensor/api/```
+- 11.11.2019 - v2.0 - changed the app so it uses sqlite and takes less space, old version, using mysql is at : https://github.com/jarekj9/mitempjjv1
 
 It will not work on RPI 1/zero due to architecture.
 I tested it on RPI 3B+, on fresh raspbian 10 buster install (full).
