@@ -1,5 +1,5 @@
 # Django
-# Version: 1.0
+# Version: 2.0
 FROM python:3-slim
 # Install Python and Package Libraries
 RUN apt-get update && apt-get upgrade -y && apt-get autoremove && apt-get autoclean

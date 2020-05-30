@@ -16,9 +16,8 @@ class LineChartInit:
   def run_LineChart(self):
     return LineChart()
 
-
-#all charts in one
 class LineChart(Chart):
+  '''All charts in one'''
   chart_type = 'line'
   
 
@@ -54,6 +53,7 @@ class LineChart(Chart):
     
 
 class SQLITE():
+  '''Usefull methods to handle sqlite commands'''
   def __init__(self,db_file):
     self.conn = None
     try:
@@ -84,8 +84,9 @@ class SQLITE():
       print(e)    
     
 
-#read values from sqlite
+
 def readall(**kwargs):
+  '''Read all values from sqlite'''
   if kwargs:
     StartDate= kwargs.get('StartDate')
     EndDate= kwargs.get('EndDate')
@@ -111,4 +112,23 @@ def readall(**kwargs):
         'batterytab':[0],
         'temperaturetab':[0],
         'humiditytab':[0]}
+
+
+def readlast():
+  '''Read last value from database'''
+  base=SQLITE("./database/mitempjj.db")
+  sql_select = "SELECT date,battery,temperature,humidity from mitempjj ORDER BY date DESC LIMIT 1;"
+  rows=base.sqlite_select(sql_select)
+  base.sqlite_close()
+  
+  if rows:
+    return [{'date':rows[0][0],
+            'battery':rows[0][1],
+            'temperature':rows[0][2],
+            'humidity':rows[0][3]}]
+  else:
+    return [{'date':'0000-00-00',
+            'battery':0,
+            'temperature':0,
+            'humidity':0}]
 

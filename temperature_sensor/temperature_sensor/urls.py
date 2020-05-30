@@ -25,6 +25,7 @@ from jchart import Chart
 urlpatterns = [
     url (r'^admin/', admin.site.urls),
 	url (r'temperature_sensor/$', site),
+    path('temperature_sensor/api/', MitempApiView.as_view()),
 	path('logout/', auth_views.LogoutView.as_view(template_name='registration/logout.html'),name='logout'),
 	
 

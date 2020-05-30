@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 	'temperature_sensor',
 	'jchart',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
