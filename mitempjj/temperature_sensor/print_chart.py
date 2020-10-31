@@ -7,6 +7,8 @@ import sqlite3
 
 g_startdate=""
 g_enddate=""
+SQLITE_DB_PATH = "./../database/mitempjj.db"
+
 #only takes date, sets global vars and starts LineChart(), which next uses these global vars
 class LineChartInit:
   def __init__(self,StartDate,EndDate):
@@ -96,7 +98,7 @@ def readall(**kwargs):
   
   datetab,batterytab,temperaturetab,humiditytab=[],[],[],[]
   
-  base=SQLITE("./database/mitempjj.db")
+  base=SQLITE(SQLITE_DB_PATH)
   sql_select = "SELECT date,battery,temperature,humidity from mitempjj WHERE date >= '%s' and date <= '%s';"%(StartDate,EndDate)
   rows=base.sqlite_select(sql_select)
   base.sqlite_close()
@@ -116,7 +118,7 @@ def readall(**kwargs):
 
 def readlast():
   '''Read last value from database'''
-  base=SQLITE("./database/mitempjj.db")
+  base=SQLITE(SQLITE_DB_PATH)
   sql_select = "SELECT date,battery,temperature,humidity from mitempjj ORDER BY date DESC LIMIT 1;"
   rows=base.sqlite_select(sql_select)
   base.sqlite_close()

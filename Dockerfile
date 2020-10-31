@@ -1,8 +1,10 @@
 # Django
-# Version: 2.0
+# Version: 3.0
 FROM python:3-slim
-# Install Python and Package Libraries
+
+# install nginx
 RUN apt-get update && apt-get upgrade -y && apt-get autoremove && apt-get autoclean
+RUN apt-get update && apt-get install nginx -y --no-install-recommends
 RUN apt-get install -y \
     libffi-dev \
     libssl-dev \
@@ -14,17 +16,22 @@ RUN apt-get install -y \
     zlib1g-dev \
     vim
 
-# Project Files and Settings
-ARG PROJECT=django
-ARG PROJECT_DIR=/var/www/${PROJECT}
+COPY nginx/nginx.default /etc/nginx/sites-available/default
+RUN ln -sf /dev/stdout /var/log/nginx/access.log \
+    && ln -sf /dev/stderr /var/log/nginx/error.log
 
-RUN mkdir -p $PROJECT_DIR
-RUN mkdir -p $PROJECT_DIR/temperature_sensor
-COPY temperature_sensor $PROJECT_DIR/temperature_sensor
-WORKDIR $PROJECT_DIR/temperature_sensor
-RUN pip install -r requirements.txt
+# copy source and install dependencies
+RUN mkdir -p /opt/app
+RUN mkdir -p /opt/app/pip_cache
+RUN mkdir -p /opt/app/mitempjj
+COPY mitempjj/requirements.txt start-server.sh /opt/app/
+COPY mitempjj /opt/app/mitempjj/
+WORKDIR /opt/app
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt --cache-dir /opt/app/pip_cache
+RUN chown -R www-data:www-data /opt/app
 
 # Server
 STOPSIGNAL SIGINT
 ENTRYPOINT ["sh"]
-CMD ["entry-point.sh"]
+CMD ["/opt/app/start-server.sh"]

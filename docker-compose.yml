@@ -1,15 +1,15 @@
-version: "2"
+version: "3"
 services:
   django:
-    container_name: django_temperature_sensor2
+    container_name: mitempjj3
     build:
       context: .
       dockerfile: Dockerfile
     restart: unless-stopped
-    image: django_temperature_sensor2
+    image: mitempjj3
     stdin_open: true
     tty: true
     volumes:
-      - ./database/:/var/www/django/temperature_sensor/database/
+      - ./database/:/opt/app/mitempjj/database/
     ports:
       - "8083:8083"
