@@ -4,6 +4,7 @@ Recent updates:
 - 11.11.2019 - v2.0 - changed the app so it uses sqlite and takes less space, old version, using mysql is at : https://github.com/jarekj9/mitempjjv1
 
 **It will not work on RPI 1/zero due to architecture.**
+**It probably only works with older sensori - using AAA battery**
 I tested it on RPI 3B+, on fresh raspbian 10 buster install (full).
 
 It works with "Mi Bluetooth Temperature & Humidity Monitor":
