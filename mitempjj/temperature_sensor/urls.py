@@ -24,11 +24,11 @@ from django.conf.urls import include
 from jchart import Chart
 urlpatterns = [
     url (r'^admin/', admin.site.urls),
-	url (r'temperature_sensor/$', site),
+    url (r'temperature_sensor/$', temperature_sensor_view, name='temperature_sensor'),
+    url (r'temperature_sensor2/$', temperature_sensor_view2, name='temperature_sensor2'),
     path('temperature_sensor/api/', MitempApiView.as_view()),
-	path('logout/', auth_views.LogoutView.as_view(template_name='registration/logout.html'),name='logout'),
-	
-
+    path('logout/', auth_views.LogoutView.as_view(template_name='registration/logout.html'),name='logout'),
+    url (r'', main_view, name="main"),
 ]
 
 urlpatterns += [

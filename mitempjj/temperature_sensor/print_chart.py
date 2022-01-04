@@ -5,26 +5,23 @@ import statistics
 from datetime import datetime, timedelta
 import sqlite3
 
-g_startdate=""
-g_enddate=""
+
 SQLITE_DB_PATH = "./../database/mitempjj.db"
 
-#only takes date, sets global vars and starts LineChart(), which next uses these global vars
-class LineChartInit:
-  def __init__(self,StartDate,EndDate):
-    global g_startdate,g_enddate
-    g_startdate = StartDate
-    g_enddate = EndDate
-  def run_LineChart(self):
-    return LineChart()
 
 class LineChart(Chart):
   '''All charts in one'''
+
+  def __init__(self, start_date, stop_date, sensor_name):
+      self.start_date = start_date
+      self.stop_date = stop_date
+      self.sensor_name = sensor_name
+      super().__init__()
+      
+
   chart_type = 'line'
-  
 
   def get_datasets(self, **kwargs):
-
     colors = [
       rgba(255, 99, 132, 0.2),
       rgba(54, 162, 235, 0.2),
@@ -33,25 +30,27 @@ class LineChart(Chart):
       rgba(153, 102, 255, 0.2),
       rgba(255, 159, 64, 0.2)
     ]
-
     return [
     {
       'label': ["Battery"],
       #'borderColor' : colors,
       #'backgroundColor' : colors,
-      'data': readall(StartDate=g_startdate,EndDate=g_enddate).get('batterytab')},
+      'data': readall(StartDate=self.start_date, EndDate=self.stop_date, sensor_name=self.sensor_name).get('batterytab')
+    },
     {
       'label': ["Temperature"],
-      'data': readall(StartDate=g_startdate,EndDate=g_enddate).get('temperaturetab')},
+      'data': readall(StartDate=self.start_date, EndDate=self.stop_date, sensor_name=self.sensor_name).get('temperaturetab')
+    },
     {
       'label': ["Humidity"],
-      'data': readall(StartDate=g_startdate,EndDate=g_enddate).get('humiditytab')},
+      'data': readall(StartDate=self.start_date, EndDate=self.stop_date, sensor_name=self.sensor_name).get('humiditytab')
+    },
     
     ]
     
     
   def get_labels(self, **kwargs):
-    return readall(StartDate=g_startdate,EndDate=g_enddate).get('datetab')    
+    return readall(StartDate=self.start_date,EndDate=self.stop_date, sensor_name=self.sensor_name) .get('datetab')
     
 
 class SQLITE():
@@ -90,19 +89,18 @@ class SQLITE():
 def readall(**kwargs):
   '''Read all values from sqlite'''
   if kwargs:
-    StartDate= kwargs.get('StartDate')
-    EndDate= kwargs.get('EndDate')
+    StartDate = kwargs.get('StartDate')
+    EndDate = kwargs.get('EndDate')
+    sensor_name = kwargs.get('sensor_name')
   else:#not used
     StartDate = (datetime.now() - timedelta(1) ).strftime("%Y-%m-%d")
     EndDate = (datetime.now() + timedelta(1) ).strftime("%Y-%m-%d")
-  
   datetab,batterytab,temperaturetab,humiditytab=[],[],[],[]
-  
+
   base=SQLITE(SQLITE_DB_PATH)
-  sql_select = "SELECT date,battery,temperature,humidity from mitempjj WHERE date >= '%s' and date <= '%s';"%(StartDate,EndDate)
+  sql_select = "SELECT date,battery,temperature,humidity from mitempjj WHERE date >= '%s' and date <= '%s' and name == '%s';"%(StartDate, EndDate, sensor_name)
   rows=base.sqlite_select(sql_select)
   base.sqlite_close()
-  
   if rows:
     unzipped=list(zip(*rows))
     return {'datetab':unzipped[0],
@@ -116,10 +114,10 @@ def readall(**kwargs):
         'humiditytab':[0]}
 
 
-def readlast():
+def readlast(sensor_name):
   '''Read last value from database'''
   base=SQLITE(SQLITE_DB_PATH)
-  sql_select = "SELECT date,battery,temperature,humidity from mitempjj ORDER BY date DESC LIMIT 1;"
+  sql_select = "SELECT date,battery,temperature,humidity from mitempjj WHERE name == '%s' ORDER BY date DESC LIMIT 1;"%(sensor_name)
   rows=base.sqlite_select(sql_select)
   base.sqlite_close()
   
@@ -134,3 +132,10 @@ def readlast():
             'temperature':0,
             'humidity':0}]
 
+def get_sensor_names():
+  '''Get list of sensor names from db'''
+  base=SQLITE(SQLITE_DB_PATH)
+  sql_select = "SELECT DISTINCT name from mitempjj;"
+  rows=base.sqlite_select(sql_select)
+  base.sqlite_close()
+  return [tupl[0] for tupl in rows]

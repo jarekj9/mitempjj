@@ -1,12 +1,12 @@
 version: "3"
 services:
   django:
-    container_name: mitempjj3
+    container_name: mitempjj4
     build:
       context: .
       dockerfile: Dockerfile
     restart: unless-stopped
-    image: mitempjj3
+    image: mitempjj4
     stdin_open: true
     tty: true
     volumes:

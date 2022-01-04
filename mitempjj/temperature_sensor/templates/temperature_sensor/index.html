@@ -15,11 +15,12 @@ MI temperature and humidity sensor. Choose date range (Y-M-D):</br>
 	</form>	
 </div>
 	
-	
-<div class="row">
-	<div class="column"> {{ line_chart.as_html }}</div>
-</div>
 
+{% for chart in charts %}
+<div class="row">{{ chart.sensor_name }}
+	<div class="column"> {{ chart.chart.as_html }}</div>
+</div>
+{% endfor %}
 
 
 

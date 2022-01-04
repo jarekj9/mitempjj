@@ -1,3 +1,6 @@
-mitemp-bt==0.0.1
-btlewrap==0.0.2
-bluepy==1.3.0
+# apt-get install build-essential libglib2.0-dev libbluetooth-dev
+mitemp-bt
+btlewrap
+bluepy
+paho.mqtt
+pybluez

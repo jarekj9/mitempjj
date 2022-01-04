@@ -1,1 +1,3 @@
-sensor_MAC=4c:65:a8:d4:b9:f0
+sensor_MAC_OLD_ROUND=4c:65:a8:d4:b9:f0 old_round_sensor
+sensor_MAC_SMALL_SQUARE=A4:C1:38:F6:0A:5E small_square_sensor
+

@@ -1,0 +1,95 @@
+<html>
+<head>
+    {% load static %}
+    <script src="{% static 'chartjs/Chart.js' %}"></script>
+    
+</head>
+
+<body>
+MI temperature and humidity sensor. Choose date range (Y-M-D):</br>
+		
+
+<div class="row">
+
+	<form id="MyForm" method="POST" class="post-form">{% csrf_token %}
+		From: <input type="text" class = "datepicker" name = "StartDate" id="StartDate" placeholder = "{{StartDate}}" value="{{StartDate}}" style = "width : 85px; margin-left: 10px; margin-top: 1mm;"/>
+		To: <input type="text" class = "datepicker" name = "EndDate" id="EndDate" placeholder = "{{EndDate}}" value="{{EndDate}}" style = "width : 85px; margin-left: 10px;"/>
+		<input type = "submit" name = "submit" value = "Update" style = "font-weight: bold; margin-left: 10px;"/>
+	</form>	
+</div>
+	
+
+
+<div class="row">
+	<div class="column"></div>
+</div>
+<div id="chartsDiv"></div>
+
+<script>
+
+let chartsDiv = document.getElementById('chartsDiv');
+for (chartNo in {{ charts|safe }}) {
+    drawChart(chartNo);
+}
+
+function drawChart(chartNo) {
+    chartsDiv.insertAdjacentHTML('afterbegin', '<canvas id="chart' + chartNo + '" width="800" height="400"></canvas>');
+    let ctx = document.getElementById('chart'+ chartNo);
+
+    const options= {
+        scales: {
+            x: {
+                type: 'timeseries',
+            }
+        },
+        responsive: false,
+    };
+    let datasetsGraph = [];
+
+    for (datasetNo in {{ charts|safe }}[chartNo]['datasets']) {
+        datasetsGraph.push({
+            label: {{ charts|safe }}[chartNo]['datasets'][datasetNo]['label'],
+            data: {{ charts|safe }}[chartNo]['datasets'][datasetNo]['data'],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        });
+    }
+
+    let data = {
+        labels: {{ charts|safe }}[chartNo]['labels'],
+        datasets: datasetsGraph
+    };
+
+    var myLineChart = new Chart(ctx, {
+        type: 'line',
+        data: data,
+        options: options,
+    });
+
+}
+</script>
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.min.js"></script>
+</body>
+</html>
+
+
+

@@ -1,5 +1,5 @@
 # Django
-# Version: 3.0
+# Version: 4.0
 FROM python:3-slim
 
 # add user pi to chown/share database volume

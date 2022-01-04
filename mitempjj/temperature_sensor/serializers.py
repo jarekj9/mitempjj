@@ -5,4 +5,4 @@ class MitempSerializer(serializers.Serializer):
    date = serializers.DateField()
    temperature = serializers.FloatField()
    humidity = serializers.FloatField()
-   battery = serializers.IntegerField()
+   battery = serializers.FloatField()
