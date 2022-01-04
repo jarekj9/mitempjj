@@ -13,23 +13,23 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
 from django.contrib import admin
 from temperature_sensor.views import *
 #for auth:
 from django.contrib.auth import views as auth_views
-from django.urls import path
+from django.urls import path, re_path
 from django.conf.urls import include
 
 from jchart import Chart
 urlpatterns = [
-    url (r'^admin/', admin.site.urls),
-    url (r'temperature_sensor/$', temperature_sensor_view, name='temperature_sensor'),
-    url (r'temperature_sensor2/$', temperature_sensor_view2, name='temperature_sensor2'),
+    re_path (r'^admin/', admin.site.urls),
+    re_path (r'temperature_sensor/$', temperature_sensor_view, name='temperature_sensor'),
+    re_path (r'temperature_sensor2/$', temperature_sensor_view2, name='temperature_sensor2'),
     path('temperature_sensor/api/', MitempApiView.as_view()),
     path('logout/', auth_views.LogoutView.as_view(template_name='registration/logout.html'),name='logout'),
-    url (r'', main_view, name="main"),
+    re_path (r'', main_view, name="main"),
 ]
+
 
 urlpatterns += [
     path('accounts/', include('django.contrib.auth.urls')),

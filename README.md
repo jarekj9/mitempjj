@@ -11,6 +11,8 @@ It works with "Mi Bluetooth Temperature & Humidity Monitor":
 
 ![Mi Sensor](misensor.png?raw=true "Mi Sensor")
 
+It can also work with flashed (custom firmware: https://github.com/atc1441/ATC_MiThermometer ) small square sensor LYWSD03MMC.
+
 Project consists of 2 parts:
 1. Script poll_sensor.py, which reads data from sensor via bluetooth and writes data to sqlite database
 2. Docker container, that reads data from sqlite and presents interactive graphs in web browser:
@@ -65,9 +67,9 @@ firewall-cmd --add-port=8083/tcp --permanent
 systemctl restart firewalld
 ```
 7. Running script 'poll_sensor.py' will save sensor data to sqlite DB.
-This will add it to crontab so it runs every 10 minutes (just replace '/your_path'):
+This will add it to root crontab (necessary to read the new square sensor) so it runs every 10 minutes (just replace '/your_path'):
 ```
-(crontab -l 2>/dev/null; echo "*/10 * * * * cd /your_path && python3 /your_path/poll_sensor.py") | crontab - 
+(crontab -l 2>/dev/null; echo "*/10 * * * * cd /your_path && python3 /your_path/poll_sensor.py") | sudo crontab - 
 ```
 
 
