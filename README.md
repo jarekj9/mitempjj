@@ -67,13 +67,22 @@ firewall-cmd --add-port=8083/tcp --permanent
 systemctl restart firewalld
 ```
 7. Running script 'poll_sensor.py' will save sensor data to sqlite DB.
-This will add it to root crontab (necessary to read the new square sensor) so it runs every 10 minutes (just replace '/your_path'):
+This will add it to root crontab (root is necessary to read the new square sensor) so it runs every 10 minutes (just replace '/your_path'):
 ```
 (crontab -l 2>/dev/null; echo "*/10 * * * * cd /your_path && python3 /your_path/poll_sensor.py") | sudo crontab - 
 ```
 
+8. To remove data, delete file: ```database/mitempjj.db```, sometimes it may be necessary to recreate everything:
+```
+cd mitempjj
+docker-compose down
+rm database/mitempjj.db
+docker-compose up -d --build
+sudo service cron restart
+```
 
-View data on ```http://<raspberry pi IP>:8083/temperature_sensor/```
+
+After some minutes view data on ```http://<raspberry pi IP>:8083/temperature_sensor/```
 
 
 
