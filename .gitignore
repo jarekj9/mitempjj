@@ -12,6 +12,7 @@ env/
 build/
 develop-eggs/
 downloads/
+database/
 eggs/
 .eggs/
 lib/
