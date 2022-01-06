@@ -76,17 +76,17 @@ This will add it to root crontab (root is necessary to read the new square senso
 (crontab -l 2>/dev/null; echo "*/10 * * * * cd /your_path && python3 /your_path/poll_sensor.py") | sudo crontab - 
 ```
 
-8. To remove data, delete file: ```database/mitempjj.db``` and to re-create everything:
+
+After some minutes view data on ```http://<raspberry pi IP>:8083/temperature_sensor/```
+
+
+To remove data, delete file: ```database/mitempjj.db``` and to re-create everything:
 ```
 cd mitempjj
 docker-compose down
 rm database/mitempjj.db
 docker-compose up -d --build
 ```
-
-
-After some minutes view data on ```http://<raspberry pi IP>:8083/temperature_sensor/```
-
 
 
 Simple Schema:
