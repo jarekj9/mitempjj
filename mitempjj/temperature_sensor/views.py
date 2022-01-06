@@ -11,6 +11,7 @@ from rest_framework import views
 from rest_framework.response import Response
 from django.http import JsonResponse
 from django.shortcuts import redirect
+from django.views.decorators.csrf import csrf_exempt
 
 #for auth:
 from django.contrib.auth.decorators import login_required
@@ -35,6 +36,7 @@ def main_view(request):
     return redirect('temperature_sensor')
 
 #@login_required
+@csrf_exempt
 def temperature_sensor_view(request):
     '''Temperature sensor view'''
     charts = []
@@ -78,6 +80,7 @@ def temperature_sensor_view(request):
         })
 
 #@login_required
+@csrf_exempt
 def temperature_sensor_view2(request):
     '''Temperature sensor view'''
     charts = []
