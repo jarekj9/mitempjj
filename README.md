@@ -1,5 +1,5 @@
 Recent updates:
-- 04.01.2022 - v4.0 - Added support for LYWSD03MMC - only with custom firmware, can add multiple sensors
+- 06.01.2022 - v4.0 - Added support for LYWSD03MMC - only with custom firmware, can add multiple sensors
 - 31.10.2020 - v3.0 - app is now using nginx+gunicorn, it consumes less cpu
 - 30.05.2020 - v2.1 - added simple api to read last values: ```http://<raspberry pi IP>:8083/temperature_sensor/api/```
 - 11.11.2019 - v2.0 - changed the app so it uses sqlite and takes less space, old version, using mysql is at : https://github.com/jarekj9/mitempjjv1
@@ -50,7 +50,7 @@ Check with command 'docker ps' if container is running.
 ```
 sudo pip3 install -r requirements.txt
 ```
-5. Check xiaomi sensor MAC address and add it to file:
+5. Check xiaomi sensor MACs addresses and add it to file:
 ```
 sudo blescan
 ```
