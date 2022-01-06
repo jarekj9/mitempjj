@@ -13,7 +13,7 @@ It works with "Mi Bluetooth Temperature & Humidity Monitor":
 ![Mi Sensor](misensor.png?raw=true "Mi Sensor")
 ![LYWSD03MMC](LYWSD03MMC.png?raw=true "LYWSD03MMC")
 
-It can also work with flashed (custom firmware: https://github.com/atc1441/ATC_MiThermometer ) small square sensor LYWSD03MMC.
+It can also work with flashed (custom firmware: https://github.com/atc1441/ATC_MiThermometer ) small square sensor LYWSD03MMC. Custom firmware advantage: reading data is simple and won't affect battery life, but it won't work with xiaomi system anymore.
 
 Project consists of 2 parts:
 1. Script poll_sensor.py, which reads data from sensor via bluetooth and writes data to sqlite database
