@@ -80,6 +80,7 @@ This will add it to root crontab (root is necessary to read the new square senso
 After some minutes view data on ```http://<raspberry pi IP>:8083/temperature_sensor/```
 
 
+
 To **remove data**, delete file: ```database/mitempjj.db``` and to **re-create** everything:
 ```
 cd mitempjj
