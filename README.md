@@ -11,6 +11,7 @@ I tested it on RPI 3B+, on fresh raspbian 10 buster install (full).
 It works with "Mi Bluetooth Temperature & Humidity Monitor":
 
 ![Mi Sensor](misensor.png?raw=true "Mi Sensor")
+![LYWSD03MMC](LYWSD03MMC.png?raw=true "LYWSD03MMC")
 
 It can also work with flashed (custom firmware: https://github.com/atc1441/ATC_MiThermometer ) small square sensor LYWSD03MMC.
 
@@ -59,13 +60,15 @@ Edit this mac in file:
 ```mac-address.txt```
 
 
-6. If you use firewall, allow connections to rpi on tcp port 8083
+6. If you use firewall on rpi, allow connections to rpi on tcp port 8083
 
 Simple example:
 
 ```
 firewall-cmd --add-port=8083/tcp --permanent
 systemctl restart firewalld
+#OR:
+sudo ufw allow 8083/tcp comment "sensor page"
 ```
 7. Running script 'poll_sensor.py' will save sensor data to sqlite DB.
 This will add it to root crontab (root is necessary to read the new square sensor) so it runs every 10 minutes (just replace '/your_path'):
@@ -73,13 +76,12 @@ This will add it to root crontab (root is necessary to read the new square senso
 (crontab -l 2>/dev/null; echo "*/10 * * * * cd /your_path && python3 /your_path/poll_sensor.py") | sudo crontab - 
 ```
 
-8. To remove data, delete file: ```database/mitempjj.db```, sometimes it may be necessary to recreate everything:
+8. To remove data, delete file: ```database/mitempjj.db``` and to re-create everything:
 ```
 cd mitempjj
 docker-compose down
 rm database/mitempjj.db
 docker-compose up -d --build
-sudo service cron restart
 ```
 
 
