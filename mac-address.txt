@@ -1,3 +1,10 @@
-sensor_MAC_OLD_ROUND=4c:65:a8:d4:b9:f0 old_round_sensor
-sensor_MAC_SMALL_SQUARE=A4:C1:38:F6:0A:5E small_square_sensor
+# pattern is as follows: SENSOR_TYPE=some_mac sensor_name
+# sensor type can be only SENSOR_MAC_OLD_ROUND or SENSOR_MAC_SMALL_SQUARE
+
+SENSOR_MAC_OLD_ROUND=4c:65:a8:d4:b9:f0 old_round_sensor1
+SENSOR_MAC_OLD_ROUND=4c:65:a8:d4:b9:f0 old_round_sensor2
+SENSOR_MAC_SMALL_SQUARE=A4:C1:38:F6:0A:5E small_square_sensor1
+SENSOR_MAC_SMALL_SQUARE=A4:C1:38:F6:0A:5E small_square_sensor2
+
+
 

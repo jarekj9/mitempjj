@@ -104,19 +104,21 @@ def list_backends(_):
 
 #read mac from file
 def get_mac():
-  macs = {}
+  macs = {'OLD_ROUND': {}, 'SMALL_SQUARE': {}}
   addr,name,login,passw,mac="","","","",""
   with open ('mac-address.txt','r') as file:
     lines = file.readlines()
   for line in lines:
-    if 'sensor_MAC_OLD_ROUND=' in line:
-        mac = line.split('sensor_MAC_OLD_ROUND=')[1].split()[0].strip()
-        name = line.split('sensor_MAC_OLD_ROUND=')[1].split()[1].strip()
-        macs.update({'OLD_ROUND':{name: mac}})
-    if 'sensor_MAC_SMALL_SQUARE=' in line:
-        mac = line.split('sensor_MAC_SMALL_SQUARE=')[1].split()[0].strip()
-        name = line.split('sensor_MAC_SMALL_SQUARE=')[1].split()[1].strip()
-        macs.update({'SMALL_SQUARE': {name: mac}})
+    if line[0] == '#':
+      continue
+    if 'SENSOR_MAC_OLD_ROUND=' in line:
+        mac = line.split('SENSOR_MAC_OLD_ROUND=')[1].split()[0].strip()
+        name = line.split('SENSOR_MAC_OLD_ROUND=')[1].split()[1].strip()
+        macs['OLD_ROUND'][name] = mac
+    if 'SENSOR_MAC_SMALL_SQUARE=' in line:
+        mac = line.split('SENSOR_MAC_SMALL_SQUARE=')[1].split()[0].strip()
+        name = line.split('SENSOR_MAC_SMALL_SQUARE=')[1].split()[1].strip()
+        macs['SMALL_SQUARE'][name] = mac
   return macs
 
 def insert_into_db(name, mac, battery, temp, hum):
@@ -161,8 +163,7 @@ def get_previous_values(mac: string) -> SensorReading:
     return previous_readings
 
 def main():
-    old_round_sensors = get_mac().get('OLD_ROUND').items() if get_mac().get('OLD_ROUND') else []
-    for name, mac in old_round_sensors:
+    for name, mac in get_mac().get('OLD_ROUND').items():
         parser = argparse.ArgumentParser()
         args = parser.parse_args()
         args.__dict__["mac"]=mac
