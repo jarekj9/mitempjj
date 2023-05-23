@@ -39,10 +39,15 @@ class LineChart(Chart):
     },
     {
       'label': ["Temperature"],
+                'backgroundColor': colors[1],
+                'borderColor': colors[1],
+
       'data': readall(StartDate=self.start_date, EndDate=self.stop_date, sensor_name=self.sensor_name).get('temperaturetab')
     },
     {
       'label': ["Humidity"],
+                'backgroundColor': colors[2],
+                'borderColor': colors[2],
       'data': readall(StartDate=self.start_date, EndDate=self.stop_date, sensor_name=self.sensor_name).get('humiditytab')
     },
     
