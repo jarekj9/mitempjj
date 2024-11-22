@@ -1,3 +1,6 @@
+**This is not updated anymore**
+
+
 Recent updates:
 - 06.01.2022 - v4.0 - Added support for LYWSD03MMC - only with custom firmware, can add multiple sensors
 - 31.10.2020 - v3.0 - app is now using nginx+gunicorn, it consumes less cpu
